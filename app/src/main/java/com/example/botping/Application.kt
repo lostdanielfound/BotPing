@@ -115,6 +115,7 @@ fun Application(
 
                 Button(
                     onClick = { // Cancel Ping coroutine scope
+                        // TODO unable to cancel thread job correct, continue even after cancel signal is sent.
                         scope.cancel("Canceling coroutine scope...")
                         isScanning = false
                     },
