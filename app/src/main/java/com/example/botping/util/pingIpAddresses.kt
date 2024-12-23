@@ -35,11 +35,9 @@ suspend fun pingIpAddresses(
 
     Log.i("Network Details", "Total number of possible address: ${networkAddresses.size}")
 
-    var isReachable: Boolean = false
     withContext(Dispatchers.IO) {
         for (networkAddress in networkAddresses) {
-            isReachable = networkAddress.isReachable(200)
-            if (isReachable) {
+            if (networkAddress.isReachable(200)) {
                 listUpdater(ActiveDevice(networkAddress))
             } else {
                 Log.w("Network Details", "Failed to ping address ${networkAddress.hostAddress}")

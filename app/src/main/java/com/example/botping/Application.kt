@@ -36,6 +36,7 @@ import com.example.botping.util.createIpObject
 import com.example.botping.util.pingIpAddresses
 import com.example.botping.util.subnetMaskToPrefix
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,7 +52,7 @@ fun Application(
 ) {
     val appViewModel = AppViewModel()
     val uiState: UiState by appViewModel.uiState.collectAsState()
-    appViewModel.updateDeviceInfo(initDeviceInfo)
+    appViewModel.updateDeviceInfo(initDeviceInfo) //Update state, (Kind of redudent tbh)
 
     Scaffold(
         topBar = {
@@ -116,7 +117,7 @@ fun Application(
                 Button(
                     onClick = { // Cancel Ping coroutine scope
                         // TODO unable to cancel thread job correct, continue even after cancel signal is sent.
-                        scope.cancel("Canceling coroutine scope...")
+                        scope.cancel("Coroutine has been cancelled")
                         isScanning = false
                     },
                     enabled = isScanning,
